@@ -1,0 +1,192 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; GCD of two Numbers
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000                 EXPORT           __Vectors
+    4 00000000         
+    5 00000000         __Vectors
+    6 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    7 00000004 00000000        DCD              Reset_Handler ; reset vector
+    8 00000008         
+    9 00000008                 ALIGN
+   10 00000008                 AREA             mycode, CODE, READONLY
+   11 00000000                 ENTRY
+   12 00000000                 EXPORT           Reset_Handler
+   13 00000000         
+   14 00000000         Reset_Handler
+   15 00000000 4808            LDR              R0, =NUM1   ; load the address 
+                                                            of first Number in 
+                                                            code memory
+   16 00000002 4909            LDR              R1, =NUM2   ; load the address 
+                                                            of second Number in
+                                                             code memory 
+   17 00000004 6800            LDR              R0, [R0]    ; R0 = 5
+   18 00000006 6809            LDR              R1, [R1]    ; R1 = 10
+   19 00000008 4288    UP      CMP              R0, R1      ; Check for Equlity
+                                                            
+   20 0000000A D004            BEQ              QT          ; If numbers are eq
+                                                            ual then quit the l
+                                                            oop
+   21 0000000C BF88 1A40       SUBHI            R0,R1       ; Here substraction
+                                                             is executed if HI 
+                                                            condition is satisf
+                                                            ied i.e, C = 1 and 
+                                                            Z = 0 , R0 = R0 - R
+                                                            1
+   22 00000010 BF38 1A09       SUBLO            R1,R0       ; Here substraction
+                                                             is executed if LO 
+                                                            condition is satisf
+                                                            ied i.e, C = 0 , R1
+                                                             = R1 - R0
+   23 00000014 E7F8            B                UP          ; Jump to up
+   24 00000016 4A05    QT      LDR              R2, =GCD    ; Load the address 
+                                                            to store result in 
+                                                            data memory in r2
+   25 00000018 6010            STR              R0, [R2]    ; store the result 
+                                                            in memory
+   26 0000001A         
+   27 0000001A         STOP
+   28 0000001A E7FE            B                STOP
+   29 0000001C         
+   30 0000001C 00000005 
+                       NUM1    DCD              5
+   31 00000020 0000000A 
+                       NUM2    DCD              10
+   32 00000024         
+   33 00000024 00000000 
+              00000000 
+              00000000         AREA             DATAWRITE , DATA, READWRITE
+   34 00000000 00000000 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+              00000000 
+              00000000 
+              00000000 
+              00000000 GCD     DCD              0,0,0,0,0
+   35 00000014         
+   36 00000014                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\gcd-of
+-two-nos.d -o.\gcd-of-two-nos.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Incl
+ude -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\gcd-of-t
+wo-nos.lst gcd-of-two-nos.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file gcd-of-two-nos.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 5 in file gcd-of-two-nos.s
+   Uses
+      At line 3 in file gcd-of-two-nos.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+NUM1 0000001C
+
+Symbol: NUM1
+   Definitions
+      At line 30 in file gcd-of-two-nos.s
+   Uses
+      At line 15 in file gcd-of-two-nos.s
+Comment: NUM1 used once
+NUM2 00000020
+
+Symbol: NUM2
+   Definitions
+      At line 31 in file gcd-of-two-nos.s
+   Uses
+      At line 16 in file gcd-of-two-nos.s
+Comment: NUM2 used once
+QT 00000016
+
+Symbol: QT
+   Definitions
+      At line 24 in file gcd-of-two-nos.s
+   Uses
+      At line 20 in file gcd-of-two-nos.s
+Comment: QT used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 14 in file gcd-of-two-nos.s
+   Uses
+      At line 7 in file gcd-of-two-nos.s
+      At line 12 in file gcd-of-two-nos.s
+
+STOP 0000001A
+
+Symbol: STOP
+   Definitions
+      At line 27 in file gcd-of-two-nos.s
+   Uses
+      At line 28 in file gcd-of-two-nos.s
+Comment: STOP used once
+UP 00000008
+
+Symbol: UP
+   Definitions
+      At line 19 in file gcd-of-two-nos.s
+   Uses
+      At line 23 in file gcd-of-two-nos.s
+Comment: UP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 10 in file gcd-of-two-nos.s
+   Uses
+      None
+Comment: mycode unused
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATAWRITE 00000000
+
+Symbol: DATAWRITE
+   Definitions
+      At line 33 in file gcd-of-two-nos.s
+   Uses
+      None
+Comment: DATAWRITE unused
+GCD 00000000
+
+Symbol: GCD
+   Definitions
+      At line 34 in file gcd-of-two-nos.s
+   Uses
+      At line 24 in file gcd-of-two-nos.s
+Comment: GCD used once
+2 symbols
+344 symbols in table

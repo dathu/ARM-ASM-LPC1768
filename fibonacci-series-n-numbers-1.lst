@@ -1,0 +1,113 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Fibonacci series 10 no: 0, 1, 1, 2, 3, 5, 8, D, 15, 22
+                       , 37, 59 HEx Series
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000                 EXPORT           __Vectors
+    4 00000000         
+    5 00000000         __Vectors
+    6 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    7 00000004 00000000        DCD              Reset_Handler ; reset vector
+    8 00000008         
+    9 00000008                 ALIGN
+   10 00000008                 AREA             AModes, CODE, READONLY
+   11 00000000                 ENTRY
+   12 00000000                 EXPORT           Reset_Handler
+   13 00000000         
+   14 00000000         Reset_Handler
+   15 00000000 F04F 45A0       LDR              R5,=0X50000000 ;Load Memory Add
+                                                            ress 
+   16 00000004 F04F 010A       MOV              R1, #10     ;number of comparis
+                                                            on 
+   17 00000008 682A    l2      LDR              R2,[R5]     ;Load 1st word to R
+                                                            2 Register loc = 0X
+                                                            50000000
+   18 0000000A F105 0604       ADD              R6,R5,#04   ;get new Word addre
+                                                            ss
+   19 0000000E 6833            LDR              R3,[R6]     ;Load 2nd Word to R
+                                                            3 Register loc = 0X
+                                                            50000004
+   20 00000010 EB02 0403       ADD              R4,R2,R3    ; r4 <- r2+r3
+   21 00000014         
+   22 00000014 6074            STR              R4,[R6,#4]  ;Store r4 result in
+                                                             next memory locati
+                                                            on 
+   23 00000016 4635            MOV              R5,R6       ;change the Address
+                                                             for next word comp
+                                                            arison 
+   24 00000018         
+   25 00000018 3901            SUBS             R1,#01      ;Subtract count by 
+                                                            one
+   26 0000001A D1F5            BNE              l2          ;Check Z flag if 1 
+                                                            come out of loop el
+                                                            se loop2  
+   27 0000001C         
+   28 0000001C BF00            NOP
+   29 0000001E                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\fibona
+cci-series-n-numbers-1.d -o.\fibonacci-series-n-numbers-1.o -IC:\Keil\ARM\RV31\
+INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EV
+AL SETA 1" --list=.\fibonacci-series-n-numbers-1.lst Fibonacci-Series-N-Numbers
+-1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file Fibonacci-Series-N-Numbers-1.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 5 in file Fibonacci-Series-N-Numbers-1.s
+   Uses
+      At line 3 in file Fibonacci-Series-N-Numbers-1.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+AModes 00000000
+
+Symbol: AModes
+   Definitions
+      At line 10 in file Fibonacci-Series-N-Numbers-1.s
+   Uses
+      None
+Comment: AModes unused
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 14 in file Fibonacci-Series-N-Numbers-1.s
+   Uses
+      At line 7 in file Fibonacci-Series-N-Numbers-1.s
+      At line 12 in file Fibonacci-Series-N-Numbers-1.s
+
+l2 00000008
+
+Symbol: l2
+   Definitions
+      At line 17 in file Fibonacci-Series-N-Numbers-1.s
+   Uses
+      At line 26 in file Fibonacci-Series-N-Numbers-1.s
+Comment: l2 used once
+3 symbols
+336 symbols in table

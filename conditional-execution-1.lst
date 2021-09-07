@@ -1,0 +1,131 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Program to perform DIVISION
+    2 00000000         
+    3 00000000                 AREA             RESET, DATA, READONLY
+    4 00000000                 EXPORT           __Vectors
+    5 00000000         
+    6 00000000         __Vectors
+    7 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    8 00000004 00000000        DCD              Reset_Handler ; reset vector
+    9 00000008         
+   10 00000008                 ALIGN
+   11 00000008                 AREA             mycode, CODE, READONLY
+   12 00000000                 ENTRY
+   13 00000000                 EXPORT           Reset_Handler
+   14 00000000         
+   15 00000000         Reset_Handler
+   16 00000000         ; Content of R0, R1 are say Unsigned Number for this Use
+                       case
+   17 00000000 F04F 5040       LDR              R0, =0X30000000
+   18 00000004 F04F 410F       LDR              R1, =0X8F000000
+   19 00000008         ;-------------------
+   20 00000008         ;2's com of 0X8F000000 is 0x71000000
+   21 00000008         ; Now Add with R0 = 0X30000000 
+   22 00000008         ; 0X30000000 
+   23 00000008         ; 0X71000000
+   24 00000008         ;---------------------
+   25 00000008         ; 0XA1000000
+   26 00000008         ;---------------------
+   27 00000008 4288            CMP              R0, R1      ; R0 - R1 
+   28 0000000A         
+   29 0000000A         
+   30 0000000A         
+   31 0000000A         ;Flags Affected 
+   32 0000000A         ;N = 1 ==> 31 st bit is '1'
+   33 0000000A         ;Z = 0 ==> Result of Substraction is not Zero
+   34 0000000A         ;C = 0 ==> (Smaller Number - Bigger Number) No carry Set
+                        
+   35 0000000A         ;V = 1 ==> +ve no + +ve no (due to 2's complement) = -ve
+                        result ;  -ve no + -ve no = +ve result
+   36 0000000A         ;V = 1 ==> As MSB bit is 1
+   37 0000000A         
+   38 0000000A         ;Condition Instructions: CS -> SAME,  HS -> HIGHER
+   39 0000000A         ;BCS UP ; Branch on Same i.e, R0 = R1 but for this case 
+                       C = 0 thus does'nt branch to 'UP' Label
+   40 0000000A         
+   41 0000000A         ;GE = Greater or Equal (N = V)
+   42 0000000A DA01            BGE              UP
+   43 0000000C BF00            NOP                          ; her eit can be an
+                                                            y other instruction
+                                                            s, for sake of demo
+                                                             I am usig NOP
+   44 0000000E BF00            NOP
+   45 00000010         
+   46 00000010 EB00 0201 
+                       UP      ADD              R2, R0, R1
+   47 00000014         
+   48 00000014 BF00            NOP
+   49 00000016                 END
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\condit
+ional-execution-1.d -o.\conditional-execution-1.o -IC:\Keil\ARM\RV31\INC -IC:\K
+eil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1"
+ --list=.\conditional-execution-1.lst conditional-execution-1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file conditional-execution-1.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 6 in file conditional-execution-1.s
+   Uses
+      At line 4 in file conditional-execution-1.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 15 in file conditional-execution-1.s
+   Uses
+      At line 8 in file conditional-execution-1.s
+      At line 13 in file conditional-execution-1.s
+
+UP 00000010
+
+Symbol: UP
+   Definitions
+      At line 46 in file conditional-execution-1.s
+   Uses
+      At line 42 in file conditional-execution-1.s
+Comment: UP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 11 in file conditional-execution-1.s
+   Uses
+      None
+Comment: mycode unused
+3 symbols
+336 symbols in table

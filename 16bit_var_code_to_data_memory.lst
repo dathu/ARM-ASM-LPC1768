@@ -1,0 +1,136 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    6 00000004 00000000        DCD              Reset_Handler ; reset vector
+    7 00000008         
+    8 00000008                 ALIGN
+    9 00000008                 AREA             mycode, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000 4804            LDR              R0, =SRC    ; Load address of S
+                                                            RC into R0
+   15 00000002 4905            LDR              R1, =DST    ; Load the address 
+                                                            of DST onto R1
+   16 00000004 6803            LDR              R3, [R0]    ; Load data pointed
+                                                             by R0 into R3
+   17 00000006 600B            STR              R3,[R1]     ; Store data from R
+                                                            3 into the address 
+                                                            pointed by R1
+   18 00000008         STOP
+   19 00000008 E7FE            B                STOP
+   20 0000000A         
+   21 0000000A 00 00 00000008 
+              00123456 SRC     DCD              8,0x123456  ; SRC location in c
+                                                            ode segment
+   22 00000014 00000000 
+              00000000         AREA             DATASEG, DATA, READWRITE
+   23 00000000         
+   24 00000000 00000000 
+                       DST     DCD              0           ;DST location in Da
+                                                            ta segment
+   25 00000004         
+   26 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\16bit_
+var_code_to_data_memory.d -o.\16bit_var_code_to_data_memory.o -IC:\Keil\ARM\RV3
+1\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__
+EVAL SETA 1" --list=.\16bit_var_code_to_data_memory.lst 16bit_var_code_to_data_
+memory.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file 16bit_var_code_to_data_memory.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file 16bit_var_code_to_data_memory.s
+   Uses
+      At line 2 in file 16bit_var_code_to_data_memory.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file 16bit_var_code_to_data_memory.s
+   Uses
+      At line 6 in file 16bit_var_code_to_data_memory.s
+      At line 11 in file 16bit_var_code_to_data_memory.s
+
+SRC 0000000C
+
+Symbol: SRC
+   Definitions
+      At line 21 in file 16bit_var_code_to_data_memory.s
+   Uses
+      At line 14 in file 16bit_var_code_to_data_memory.s
+Comment: SRC used once
+STOP 00000008
+
+Symbol: STOP
+   Definitions
+      At line 18 in file 16bit_var_code_to_data_memory.s
+   Uses
+      At line 19 in file 16bit_var_code_to_data_memory.s
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 9 in file 16bit_var_code_to_data_memory.s
+   Uses
+      None
+Comment: mycode unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATASEG 00000000
+
+Symbol: DATASEG
+   Definitions
+      At line 22 in file 16bit_var_code_to_data_memory.s
+   Uses
+      None
+Comment: DATASEG unused
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 24 in file 16bit_var_code_to_data_memory.s
+   Uses
+      At line 15 in file 16bit_var_code_to_data_memory.s
+Comment: DST used once
+2 symbols
+341 symbols in table

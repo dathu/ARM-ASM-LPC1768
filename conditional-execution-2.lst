@@ -1,0 +1,124 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Conditional Execution 1
+    2 00000000         
+    3 00000000                 AREA             RESET, DATA, READONLY
+    4 00000000                 EXPORT           __Vectors
+    5 00000000         
+    6 00000000         __Vectors
+    7 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    8 00000004 00000000        DCD              Reset_Handler ; reset vector
+    9 00000008         
+   10 00000008                 ALIGN
+   11 00000008                 AREA             mycode, CODE, READONLY
+   12 00000000                 ENTRY
+   13 00000000                 EXPORT           Reset_Handler
+   14 00000000         
+   15 00000000         Reset_Handler
+   16 00000000         
+   17 00000000 F04F 0002       MOV              R0, #0x2    ; setting up initia
+                                                            l variable 
+   18 00000004 2803            CMP              R0, #0x3    ; comparing r0 to n
+                                                            umber 3. Negative b
+                                                            it get's set to 1 (
+                                                            2 - 3 = -1)
+   19 00000006         
+   20 00000006         ;the ADDLT instruction is executed because LT condition 
+                       is full filled when 
+   21 00000006         ;V != N (values of overflow and negative bits in the CPS
+                       R are different).
+   22 00000006         
+   23 00000006 BFB8 1C40       ADDLT            R0, R0, #0x1 ; increasing r0 IF
+                                                             it was determined 
+                                                            that it is smaller 
+                                                            (lower than) number
+                                                             3 
+   24 0000000A         
+   25 0000000A         ; Below are used to move data between register and APSR
+   26 0000000A F04F 0400       LDR              R4, =0X00000000
+   27 0000000E F384 8803       MSR              xPSR, R4    ; Setting NZCV flag
+                                                             to 1 in xPSR
+   28 00000012         
+   29 00000012 2803            CMP              R0, #0x3    ; comparing r0 to n
+                                                            umber 3 again. Zero
+                                                             bit gets set to 1.
+                                                             Negative bit is se
+                                                            t to 0
+   30 00000014         
+   31 00000014         
+   32 00000014 F04F 0505       MOV              R5, #0x5
+   33 00000018         ; Below are used to move data between register and APSR
+   34 00000018 F04F 0400       LDR              R4, =0X00000000
+   35 0000001C F384 8803       MSR              xPSR, R4    ; Setting NZCV flag
+                                                             to 1 in xPSR
+   36 00000020         
+   37 00000020 2D05            CMP              R5, #0x5
+   38 00000022         
+   39 00000022 2D06            CMP              R5, #0X6
+   40 00000024         
+   41 00000024 BF00            NOP
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   42 00000026                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\condit
+ional-execution-2.d -o.\conditional-execution-2.o -IC:\Keil\ARM\RV31\INC -IC:\K
+eil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1"
+ --list=.\conditional-execution-2.lst conditional-execution-2.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file conditional-execution-2.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 6 in file conditional-execution-2.s
+   Uses
+      At line 4 in file conditional-execution-2.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 15 in file conditional-execution-2.s
+   Uses
+      At line 8 in file conditional-execution-2.s
+      At line 13 in file conditional-execution-2.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 11 in file conditional-execution-2.s
+   Uses
+      None
+Comment: mycode unused
+2 symbols
+335 symbols in table

@@ -1,0 +1,176 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    6 00000004 00000000        DCD              Reset_Handler ; reset vector
+    7 00000008         
+    8 00000008                 ALIGN
+    9 00000008                 AREA             movins, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000 F64F 2105       MOV              R1, #0XFA05 ; Write value of Ox
+                                                            FA05 to R1, flags a
+                                                            re not updated 
+   15 00000004 F04F 0317       MOV              R3, #23     ; Write value of 23
+                                                             to R3, hex equival
+                                                            ent of 23 will be s
+                                                            tored i.e, 0X17
+   16 00000008 46E8            MOV              R8, SP      ; Write value of st
+                                                            ack pointer to R8 
+   17 0000000A         
+   18 0000000A F05F 0B0B       MOVS             R11, #0x000B ; Write value of 0
+                                                            x000B to R11, flags
+                                                             get updated 
+   19 0000000E EA5F 0A0C       MOVS             R10, R12    ; Write value in R1
+                                                            2 to R10, flags get
+                                                             updated Observer Z
+                                                            ero Flag
+   20 00000012         
+   21 00000012         ;Note: only 'N' & 'Z' Flags are affected 'C, V' flags ar
+                       e not affected 
+   22 00000012         
+   23 00000012 F07F 020F       MVNS             R2, #0xF    ; Write value of 0x
+                                                            FFFFFFF0 (bitwise i
+                                                            nverse of OxF) to t
+                                                            he R2 and update fl
+                                                            ags.
+   24 00000016         
+   25 00000016         ; Below are used to copy half-word into register
+   26 00000016         
+   27 00000016 F241 2734       MOVW             R7, #0X1234 ; Write 0x1234 to l
+                                                            ower halfword of R7
+                                                            , Upper Halfword an
+                                                            d APSR are unchange
+                                                            d.
+   28 0000001A F2CF 1523       MOVT             R5, #0xF123 ; Write 0xF123 to u
+                                                            pper halfword of R5
+                                                            , lower halfword an
+                                                            d APSR are unchange
+                                                            d.
+   29 0000001E         
+   30 0000001E         ; Below are used to move data between register and APSR
+   31 0000001E F04F 4470       LDR              R4, =0XF0000000
+   32 00000022 F384 8803       MSR              xPSR, R4    ; Setting NZCV flag
+                                                             to 1 in xPSR
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   33 00000026 F3EF 8903       MRS              R9, xPSR    ;IN xPSR F1: 1 is u
+                                                            sed to indicate thu
+                                                            mb state; IN APSR w
+                                                            e focus on NZCV so 
+                                                            R9 has 0XF0000000
+   34 0000002A         
+   35 0000002A         ;Below are used to move the data between register if cer
+                       tain condition are satisfied
+   36 0000002A BF14 46E3       MOVNE            R11,R12     ;content of R12=0x0
+                                                            0000000 is not copi
+                                                            ed to R11 as 'Z' fl
+                                                            ag is set (required
+                                                             was Z=0)
+   37 0000002E 46E3            MOVEQ            R11,R12     ;content of R12=0x0
+                                                            0000000 is  copied 
+                                                            to R11 as 'Z' flag 
+                                                            is set
+   38 00000030         
+   39 00000030         ;Below are used to move the data between register using 
+                       barrel-shifter operation (Logical or Arithmetic shifts) 
+                       Without updating xPSR
+   40 00000030 F04F 0400       LDR              R4, =0X00000000
+   41 00000034 F384 8803       MSR              xPSR, R4    ; Clearig all the f
+                                                            lags
+   42 00000038 4904            LDR              R1, =0X80000004 ; Value to be s
+                                                            hifted is stored in
+                                                             R1
+   43 0000003A EA4F 0041       MOV              R0, R1, LSL #1 ; R0 = 0x0000000
+                                                            8 (Logical Shift) a
+                                                            nd in xPSR Flags ar
+                                                            e not updated.
+   44 0000003E         
+   45 0000003E         ;Below are used to move the data between register using 
+                       barrel-shifter operation (Logical or Arithmetic) WITH up
+                       dating xPSR
+   46 0000003E F04F 0400       LDR              R4, =0X00000000
+   47 00000042 F384 8803       MSR              xPSR, R4    ; Clearig all the f
+                                                            lags
+   48 00000046 4901            LDR              R1, =0X80000004 ; Value to be s
+                                                            hifted is stored in
+                                                             R1
+   49 00000048 0048            MOVS             R0, R1, LSL #1 ; R0 = 0x0000000
+                                                            8 (Logical Shift) a
+                                                            nd in xPSR Flags ar
+                                                            e UPDATED (Carry fl
+                                                            ag is set).
+   50 0000004A         
+   51 0000004A         ; try out for LSR, ASR, ROR,RRX instructions with mov,mo
+                       vs
+   52 0000004A         
+   53 0000004A BF00            NOP
+   54 0000004C                 END
+              80000004 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\mov-in
+st-1.d -o.\mov-inst-1.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:
+\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\mov-inst-1.lst m
+ov-inst-1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file mov-inst-1.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file mov-inst-1.s
+   Uses
+      At line 2 in file mov-inst-1.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file mov-inst-1.s
+   Uses
+      At line 6 in file mov-inst-1.s
+      At line 11 in file mov-inst-1.s
+
+movins 00000000
+
+Symbol: movins
+   Definitions
+      At line 9 in file mov-inst-1.s
+   Uses
+      None
+Comment: movins unused
+2 symbols
+337 symbols in table

@@ -1,0 +1,151 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;ALP to covert Hex Number to ASCII Code Single digit
+    2 00000000         
+    3 00000000                 AREA             RESET, DATA, READONLY
+    4 00000000                 EXPORT           __Vectors
+    5 00000000         
+    6 00000000         __Vectors
+    7 00000000 40001000        DCD              0x40001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    8 00000004 00000000        DCD              Reset_Handler ; reset vector
+    9 00000008         
+   10 00000008                 ALIGN
+   11 00000008         
+   12 00000008                 AREA             mycode, CODE, READONLY
+   13 00000000                 ENTRY
+   14 00000000                 EXPORT           Reset_Handler
+   15 00000000         
+   16 00000000         Reset_Handler
+   17 00000000 4807            LDR              R0, =src    ; Get the memory lo
+                                                            c of Hex Digit sour
+                                                            ce
+   18 00000002 6805            LDR              R5, [R0]    ; Copy the value fr
+                                                            om memory to R5, i.
+                                                            e 0x1 or 0xE
+   19 00000004 4907            LDR              R1, =DST    ; Load R1 with Addr
+                                                            ess of Destination 
+                                                            location 
+   20 00000006 F005 020F       AND              R2,R5,#0x0F ; Masking to get on
+                                                            ly LSB byte in case
+                                                             of multidigit numb
+                                                            er
+   21 0000000A 2A09            CMP              R2,#09      ; Affects the carry
+                                                             flag if no>9 c = 1
+                                                             else C = 0
+   22 0000000C D301            BLO              DOWN        ; No < 9, add only 
+                                                            30
+   23 0000000E F102 0207       ADD              R2,#07      ; No > 9, add 7 + 3
+                                                            0
+   24 00000012         DOWN
+   25 00000012 F102 0230       ADD              R2,#0x30
+   26 00000016 F801 2B01       STRB             R2, [R1], #01 ; Store the resul
+                                                            t in Memory pointed
+                                                             by R1
+   27 0000001A         
+   28 0000001A BF00            NOP
+   29 0000001C 0000000A 
+                       src     dcd              0xA         ; 0xA
+   30 00000020         
+   31 00000020 00000000 
+              00000000         AREA             ASCII, DATA, READWRITE
+   32 00000000 00000000 
+                       DST     DCD              0
+   33 00000004         
+   34 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\l-hex-
+ascii-single-digit.d -o.\l-hex-ascii-single-digit.o -IC:\Keil\ARM\RV31\INC -IC:
+\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 
+1" --list=.\l-hex-ascii-single-digit.lst L-Hex-Ascii-single-digit.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file L-Hex-Ascii-single-digit.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 6 in file L-Hex-Ascii-single-digit.s
+   Uses
+      At line 4 in file L-Hex-Ascii-single-digit.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DOWN 00000012
+
+Symbol: DOWN
+   Definitions
+      At line 24 in file L-Hex-Ascii-single-digit.s
+   Uses
+      At line 22 in file L-Hex-Ascii-single-digit.s
+Comment: DOWN used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 16 in file L-Hex-Ascii-single-digit.s
+   Uses
+      At line 8 in file L-Hex-Ascii-single-digit.s
+      At line 14 in file L-Hex-Ascii-single-digit.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 12 in file L-Hex-Ascii-single-digit.s
+   Uses
+      None
+Comment: mycode unused
+src 0000001C
+
+Symbol: src
+   Definitions
+      At line 29 in file L-Hex-Ascii-single-digit.s
+   Uses
+      At line 17 in file L-Hex-Ascii-single-digit.s
+Comment: src used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+ASCII 00000000
+
+Symbol: ASCII
+   Definitions
+      At line 31 in file L-Hex-Ascii-single-digit.s
+   Uses
+      None
+Comment: ASCII unused
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 32 in file L-Hex-Ascii-single-digit.s
+   Uses
+      At line 19 in file L-Hex-Ascii-single-digit.s
+Comment: DST used once
+2 symbols
+341 symbols in table

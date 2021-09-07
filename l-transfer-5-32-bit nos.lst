@@ -1,0 +1,184 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Program to perform 
+    2 00000000         
+    3 00000000                 AREA             RESET, DATA, READONLY
+    4 00000000                 EXPORT           __Vectors
+    5 00000000         
+    6 00000000         __Vectors
+    7 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    8 00000004 00000000        DCD              Reset_Handler ; reset vector
+    9 00000008         
+   10 00000008                 ALIGN
+   11 00000008                 AREA             mycode, CODE, READONLY
+   12 00000000                 ENTRY
+   13 00000000                 EXPORT           Reset_Handler
+   14 00000000         
+   15 00000000 00000001 
+              00000002 
+              00000003 
+              00000004 
+              00000005 Sourloc DCD              1,2,3,4,5
+   16 00000014         Reset_Handler
+   17 00000014         
+   18 00000014 480A            LDR              R0,=SRC     ; Load RO with Addr
+                                                            ess of Source locat
+                                                            ion 
+   19 00000016 490B            LDR              R1,=DST     ; Load R1 with Addr
+                                                            ess of Destination 
+                                                            location 
+   20 00000018 F04F 0205       MOV              R2,#5       ; Load R2 with numb
+                                                            er of datas to be t
+                                                            ransfer 
+   21 0000001C         
+   22 0000001C         REPEAT
+   23 0000001C F850 3B04       LDR              R3,[R0],#4  ; R3=[R0] and R0=R0
+                                                            +4,Load R3 with fir
+                                                            st data and RO is i
+                                                            ncremen STR R3,
+   24 00000020 F841 3B04       STR              R3,[R1],#4  ; R3 -> [R1] store 
+                                                            it in address prese
+                                                            nt in R1 and increm
+                                                            ent R1 
+   25 00000024 1E52            SUBS             R2,R2,#1    ;R2=R2-1 
+   26 00000026 D1F9            BNE              REPEAT      ;branch to label RE
+                                                            PEAT if Z flag Not 
+                                                            Equal to 1 
+   27 00000028         
+   28 00000028         STOP
+   29 00000028 E7FE            B                STOP
+   30 0000002A         
+   31 0000002A 00 00 00000001 
+              00000002 
+              00000003 
+              00000004 
+              00000005 SRC     DCD              1,2,3,4,5
+   32 00000040         
+   33 00000040 00000000 
+              00000000         AREA             DATAWRITE , DATA, READWRITE
+   34 00000000 00000000 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+              00000000 
+              00000000 
+              00000000 
+              00000000 DST     DCD              0,0,0,0,0
+   35 00000014         
+   36 00000014                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=".\l-tra
+nsfer-5-32-bit nos.d" -o".\l-transfer-5-32-bit nos.o" -IC:\Keil\ARM\RV31\INC -I
+C:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SET
+A 1" --list=.\l-transfer-5-32-bit nos.lst "L-transfer-5-32-bit nos.s"
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file L-transfer-5-32-bit
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 6 in file L-transfer-5-32-bit
+   Uses
+      At line 4 in file L-transfer-5-32-bit
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+REPEAT 0000001C
+
+Symbol: REPEAT
+   Definitions
+      At line 22 in file L-transfer-5-32-bit
+   Uses
+      At line 26 in file L-transfer-5-32-bit
+Comment: REPEAT used once
+Reset_Handler 00000014
+
+Symbol: Reset_Handler
+   Definitions
+      At line 16 in file L-transfer-5-32-bit
+   Uses
+      At line 8 in file L-transfer-5-32-bit
+      At line 13 in file L-transfer-5-32-bit
+
+SRC 0000002C
+
+Symbol: SRC
+   Definitions
+      At line 31 in file L-transfer-5-32-bit
+   Uses
+      At line 18 in file L-transfer-5-32-bit
+Comment: SRC used once
+STOP 00000028
+
+Symbol: STOP
+   Definitions
+      At line 28 in file L-transfer-5-32-bit
+   Uses
+      At line 29 in file L-transfer-5-32-bit
+Comment: STOP used once
+Sourloc 00000000
+
+Symbol: Sourloc
+   Definitions
+      At line 15 in file L-transfer-5-32-bit
+   Uses
+      None
+Comment: Sourloc unused
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 11 in file L-transfer-5-32-bit
+   Uses
+      None
+Comment: mycode unused
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATAWRITE 00000000
+
+Symbol: DATAWRITE
+   Definitions
+      At line 33 in file L-transfer-5-32-bit
+   Uses
+      None
+Comment: DATAWRITE unused
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 34 in file L-transfer-5-32-bit
+   Uses
+      At line 19 in file L-transfer-5-32-bit
+Comment: DST used once
+2 symbols
+343 symbols in table

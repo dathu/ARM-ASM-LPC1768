@@ -1,0 +1,1 @@
+.\firstarm.o: firstARM.s

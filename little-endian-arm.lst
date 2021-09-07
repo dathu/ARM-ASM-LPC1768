@@ -1,0 +1,91 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    6 00000004 00000000        DCD              Reset_Handler ; reset vector
+    7 00000008         
+    8 00000008                 ALIGN
+    9 00000008                 AREA             endian, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000         
+   15 00000000 F04F 5080       LDR              R0, =0X10000000 ; memort locati
+                                                            on in RAM pointed b
+                                                            y R0 (immediate val
+                                                            ue)
+   16 00000004 4902            LDR              R1, =0X11223344 ; Value to be s
+                                                            tore in Memory
+   17 00000006 6001            STR              R1, [R0]    ; Check the memory 
+                                                            location 0X10000000
+                                                             to 0X10000003
+   18 00000008 7802            LDRB             R2, [R0]    ; R2 = 44 (LSB Byte
+                                                            )
+   19 0000000A 8803            LDRH             R3, [R0]    ; R3 = 44 33 OR 33 
+                                                            44 ? any guess!!!!
+   20 0000000C         
+   21 0000000C BF00            NOP
+   22 0000000E                 END
+              00 00 11223344 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\little
+-endian-arm.d -o.\little-endian-arm.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSI
+S\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\li
+ttle-endian-arm.lst little-endian-arm.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file little-endian-arm.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file little-endian-arm.s
+   Uses
+      At line 2 in file little-endian-arm.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file little-endian-arm.s
+   Uses
+      At line 6 in file little-endian-arm.s
+      At line 11 in file little-endian-arm.s
+
+endian 00000000
+
+Symbol: endian
+   Definitions
+      At line 9 in file little-endian-arm.s
+   Uses
+      None
+Comment: endian unused
+2 symbols
+337 symbols in table

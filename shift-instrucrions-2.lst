@@ -1,0 +1,94 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Shift Instructions: LSL, LSR, ASR
+    2 00000000         ; Flags are not affected 
+    3 00000000         ; Use 'S' Suffix to update teh flag
+    4 00000000         
+    5 00000000                 AREA             RESET, DATA, READONLY
+    6 00000000                 EXPORT           __Vectors
+    7 00000000         
+    8 00000000         __Vectors
+    9 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+   10 00000004 00000000        DCD              Reset_Handler ; reset vector
+   11 00000008         
+   12 00000008                 ALIGN
+   13 00000008                 AREA             mycode, CODE, READONLY
+   14 00000000                 ENTRY
+   15 00000000                 EXPORT           Reset_Handler
+   16 00000000         
+   17 00000000         Reset_Handler
+   18 00000000 F04F 0230       LDR              R2, =0x00000030
+   19 00000004         
+   20 00000004         ; Logical Shift Right by 2 Bits
+   21 00000004         ; R2 = Unchanged and 
+   22 00000004         ; R0  = [R2] Shifted by 2 bits left
+   23 00000004 EA4F 0092       MOV              R0, R2, LSR #2
+   24 00000008         
+   25 00000008         ; Guess the output, 4-bits means 1 digit
+   26 00000008 4904            LDR              R1, =0x11223344
+   27 0000000A EA4F 1611       MOV              R6, R1, LSR #4
+   28 0000000E EA4F 2711       MOV              R7, R1, LSR #8
+   29 00000012 EA4F 4811       MOV              R8, R1, LSR #16
+   30 00000016 EA5F 0811       MOVS             R8, R1, LSR #32
+   31 0000001A         
+   32 0000001A BF00            NOP
+   33 0000001C                 END
+              11223344 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\shift-
+instrucrions-2.d -o.\shift-instrucrions-2.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\AR
+M\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --lis
+t=.\shift-instrucrions-2.lst shift-instrucrions-2.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 5 in file shift-instrucrions-2.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 8 in file shift-instrucrions-2.s
+   Uses
+      At line 6 in file shift-instrucrions-2.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 17 in file shift-instrucrions-2.s
+   Uses
+      At line 10 in file shift-instrucrions-2.s
+      At line 15 in file shift-instrucrions-2.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 13 in file shift-instrucrions-2.s
+   Uses
+      None
+Comment: mycode unused
+2 symbols
+337 symbols in table

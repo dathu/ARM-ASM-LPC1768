@@ -1,0 +1,6 @@
+	;Data from memory are stored into the general purpose registers. 
+	;Enter only first 8 location in memory starting from "0X10000000", (data:1,2,3,4,5,6,A,B), USE IMAGE LS_INS-1.PNG
+	;What is the observation you can do?!!
+	;Now enter the data in memory such that all register are populated with data in memory (data:1,2,3,4,5,6,A,B) USE IMAGE LS_INS-2.PNG
+	
+	; ALL THE 3 INSTRUCTION WORKS IN THE SAME MANNER 

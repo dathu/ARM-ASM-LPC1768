@@ -1,0 +1,91 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; logical Instructions: TST, TEQ
+    2 00000000         ; Flags are affected , register contents are not updated
+                       
+    3 00000000         ; Flags Affected: 'N & Z'
+    4 00000000         ; Used for: verifying the bit status
+    5 00000000         
+    6 00000000         
+    7 00000000                 AREA             RESET, DATA, READONLY
+    8 00000000                 EXPORT           __Vectors
+    9 00000000         
+   10 00000000         __Vectors
+   11 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+   12 00000004 00000000        DCD              Reset_Handler ; reset vector
+   13 00000008         
+   14 00000008                 ALIGN
+   15 00000008                 AREA             mycode, CODE, READONLY
+   16 00000000                 ENTRY
+   17 00000000                 EXPORT           Reset_Handler
+   18 00000000         
+   19 00000000         Reset_Handler
+   20 00000000 F04F 30FF       LDR              R0, =0xFFFFFFFF
+   21 00000004 F04F 31FF       LDR              R1, =0xFFFFFFFF
+   22 00000008 4208            TST              R0, R1
+   23 0000000A         
+   24 0000000A 4B02            LDR              R3, =0x0FFFFFFF
+   25 0000000C F04F 34FF       LDR              R4, =0xFFFFFFFF
+   26 00000010 4208            TST              R0, R1
+   27 00000012         
+   28 00000012 BF00            NOP
+   29 00000014                 END
+              0FFFFFFF 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\logica
+l-instruction-2.d -o.\logical-instruction-2.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\
+ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --l
+ist=.\logical-instruction-2.lst logical-instruction-2.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 7 in file logical-instruction-2.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 10 in file logical-instruction-2.s
+   Uses
+      At line 8 in file logical-instruction-2.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 19 in file logical-instruction-2.s
+   Uses
+      At line 12 in file logical-instruction-2.s
+      At line 17 in file logical-instruction-2.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 15 in file logical-instruction-2.s
+   Uses
+      None
+Comment: mycode unused
+2 symbols
+337 symbols in table

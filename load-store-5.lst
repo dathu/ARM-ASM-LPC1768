@@ -1,0 +1,96 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    6 00000004 00000000        DCD              Reset_Handler ; reset vector
+    7 00000008         
+    8 00000008                 ALIGN
+    9 00000008                 AREA             mycode, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000 F04F 5080       LDR              R0, =0X10000000 ; memort locati
+                                                            on in RAM pointed b
+                                                            y R0 (immediate val
+                                                            ue)
+   15 00000004 4F01            LDR              R7, =0X1000000E ; memort locati
+                                                            on in RAM pointed b
+                                                            y R0 (immediate val
+                                                            ue)
+   16 00000006         
+   17 00000006         
+   18 00000006         ; Base Register contents are updated following the trans
+                       fer 
+   19 00000006         
+   20 00000006 E890 000E       LDM              R0, {R1-R3} ; R0 <- R0 after ex
+                                                            ecution
+   21 0000000A         ;LDM     R0!, {R1-R3}    ; R0 <- R0 + 12 after execution
+                       
+   22 0000000A         ;STM     R7!, {R1-R3}    ; R7 <- R7 + 12
+   23 0000000A         
+   24 0000000A         
+   25 0000000A BF00            NOP
+   26 0000000C                 END
+              1000000E 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\load-s
+tore-5.d -o.\load-store-5.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include 
+-IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\load-store-5
+.lst load-store-5.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file load-store-5.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file load-store-5.s
+   Uses
+      At line 2 in file load-store-5.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file load-store-5.s
+   Uses
+      At line 6 in file load-store-5.s
+      At line 11 in file load-store-5.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 9 in file load-store-5.s
+   Uses
+      None
+Comment: mycode unused
+2 symbols
+337 symbols in table

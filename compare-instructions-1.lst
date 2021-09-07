@@ -1,0 +1,111 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; logical Instructions: TST, TEQ
+    2 00000000         ; Flags are affected , register contents are not updated
+                       
+    3 00000000         ; Flags Affected: 'N & Z'
+    4 00000000         ; Used for: verifying the bit status
+    5 00000000         
+    6 00000000         
+    7 00000000                 AREA             RESET, DATA, READONLY
+    8 00000000                 EXPORT           __Vectors
+    9 00000000         
+   10 00000000         __Vectors
+   11 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+   12 00000004 00000000        DCD              Reset_Handler ; reset vector
+   13 00000008         
+   14 00000008                 ALIGN
+   15 00000008                 AREA             mycode, CODE, READONLY
+   16 00000000                 ENTRY
+   17 00000000                 EXPORT           Reset_Handler
+   18 00000000         
+   19 00000000         Reset_Handler
+   20 00000000 F04F 30FF       LDR              R0, =0xFFFFFFFF
+   21 00000004 F04F 31FF       LDR              R1, =0xFFFFFFFF
+   22 00000008         
+   23 00000008 4288            CMP              R0, R1      ; (R0 - R1) SAME Z 
+                                                            = 1
+   24 0000000A         
+   25 0000000A F04F 0400       LDR              R4, =0X00000000
+   26 0000000E F384 8803       MSR              xPSR, R4    ; Clearig all the f
+                                                            lags
+   27 00000012         
+   28 00000012 42C8            CMN              R0, R1      ; Similar to ADDS t
+                                                            hus MSB BIT = 1 => 
+                                                            N = 1
+   29 00000014         
+   30 00000014 F384 8803       MSR              xPSR, R4    ; Clearig all the f
+                                                            lags
+   31 00000018         
+   32 00000018 4208            TST              R0, R1      ;  Logical AND, as 
+                                                            MSB bits are 1 afte
+                                                            r operation thus N 
+                                                            = 1
+   33 0000001A         
+   34 0000001A F384 8803       MSR              xPSR, R4    ; Clearig all the f
+                                                            lags
+   35 0000001E         
+   36 0000001E EA90 0F01       TEQ              R0, R1      ; Logical EOR, resu
+                                                            lt is zero thus Z =
+                                                             1
+   37 00000022         
+   38 00000022 BF00            NOP
+   39 00000024                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\compar
+e-instructions-1.d -o.\compare-instructions-1.o -IC:\Keil\ARM\RV31\INC -IC:\Kei
+l\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" -
+-list=.\compare-instructions-1.lst compare-instructions-1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 7 in file compare-instructions-1.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 10 in file compare-instructions-1.s
+   Uses
+      At line 8 in file compare-instructions-1.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 19 in file compare-instructions-1.s
+   Uses
+      At line 12 in file compare-instructions-1.s
+      At line 17 in file compare-instructions-1.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 15 in file compare-instructions-1.s
+   Uses
+      None
+Comment: mycode unused
+2 symbols
+335 symbols in table

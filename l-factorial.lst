@@ -1,0 +1,140 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000                 EXPORT           __Vectors
+    4 00000000         
+    5 00000000         __Vectors
+    6 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    7 00000004 00000000        DCD              Reset_Handler ; reset vector
+    8 00000008         
+    9 00000008                 ALIGN
+   10 00000008         
+   11 00000008                 AREA             mycode, CODE, READONLY
+   12 00000000                 ENTRY
+   13 00000000                 EXPORT           Reset_Handler
+   14 00000000         
+   15 00000000         Reset_Handler
+   16 00000000 F04F 0005       ldr              r0,=05
+   17 00000004 F000 F801       bl               factorial
+   18 00000008 E7FE    stop    b                stop
+   19 0000000A         
+   20 0000000A         factorial
+   21 0000000A B510            push             {r4,lr}
+   22 0000000C         ;push r4 and lr onto the top of the stack 
+   23 0000000C         ;stack<=>sdmdb sp!,{r4,lr} 
+   24 0000000C         
+   25 0000000C 4604            mov              r4,r0       ;//make a copy of r
+                                                            0 
+   26 0000000E         
+   27 0000000E         
+   28 0000000E 2800            cmp              r0,#0       ;//compare r0 with 
+                                                            0 
+   29 00000010         
+   30 00000010         
+   31 00000010 D102            bne              not_zero    ;//branch to not_ze
+                                                            ro if not equal  
+   32 00000012 F04F 0001       mov              r0,#1       ;//r0=1 
+   33 00000016 E006            b                last
+   34 00000018         not_zero
+   35 00000018 F1A0 0001       sub              r0,r0,#1    ;//r0=r0-1 
+   36 0000001C F7FF FFF5       bl               factorial   ;//call recursively
+                                                             factorial 
+   37 00000020 4621            mov              r1,r4
+   38 00000022 FB00 F001       mul              r0,r0,r1    ;//r0=r0*r1 
+   39 00000026         last
+   40 00000026 E8BD 4010       pop              {r4,lr}     ;//pop <=> ldmia sp
+                                                            ! {r4,lr} 
+   41 0000002A 4770            bx               lr
+                       
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\l-fact
+orial.d -o.\l-factorial.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -I
+C:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\l-factorial.ls
+t L-factorial.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file L-factorial.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 5 in file L-factorial.s
+   Uses
+      At line 3 in file L-factorial.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 15 in file L-factorial.s
+   Uses
+      At line 7 in file L-factorial.s
+      At line 13 in file L-factorial.s
+
+factorial 0000000A
+
+Symbol: factorial
+   Definitions
+      At line 20 in file L-factorial.s
+   Uses
+      At line 17 in file L-factorial.s
+      At line 36 in file L-factorial.s
+
+last 00000026
+
+Symbol: last
+   Definitions
+      At line 39 in file L-factorial.s
+   Uses
+      At line 33 in file L-factorial.s
+Comment: last used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 11 in file L-factorial.s
+   Uses
+      None
+Comment: mycode unused
+not_zero 00000018
+
+Symbol: not_zero
+   Definitions
+      At line 34 in file L-factorial.s
+   Uses
+      At line 31 in file L-factorial.s
+Comment: not_zero used once
+stop 00000008
+
+Symbol: stop
+   Definitions
+      At line 18 in file L-factorial.s
+   Uses
+      At line 18 in file L-factorial.s
+Comment: stop used once
+6 symbols
+339 symbols in table

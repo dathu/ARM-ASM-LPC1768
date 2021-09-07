@@ -1,0 +1,2 @@
+Dependencies for Project 'firstARM', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Fibonacci-Series-N-Numbers-1.s)(0x613455E0)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\NXP\LPC17xx--list .\fibonacci-series-n-numbers-1.lst --xref -o .\fibonacci-series-n-numbers-1.o --depend .\fibonacci-series-n-numbers-1.d)

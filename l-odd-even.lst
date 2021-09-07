@@ -1,0 +1,124 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; ALP to Check given NUM is EVEN or ODD, If Even store O
+                       xEEEE in Reg R1 nad if ODD number, Store Ox1111 in Reg R
+                       1
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000                 EXPORT           __Vectors
+    4 00000000         
+    5 00000000         __Vectors
+    6 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    7 00000004 00000000        DCD              Reset_Handler ; reset vector
+    8 00000008         
+    9 00000008 0000005A 
+                       NUM     DCD              90          ;Initialize the num
+                                                            ber
+   10 0000000C         
+   11 0000000C                 ALIGN
+   12 0000000C                 AREA             mycode, CODE, READONLY
+   13 00000000                 ENTRY
+   14 00000000                 EXPORT           Reset_Handler
+   15 00000000         
+   16 00000000         Reset_Handler
+   17 00000000 F85F 0004       LDR              R0, NUM
+   18 00000004 0840            LSRS             R0,#1       ; check LSB by Logi
+                                                            cally Shift Right b
+                                                            y 1 time 
+   19 00000006 D202            BCS              NEXT        ;Branch to NEXT if 
+                                                            carry is set[LSB=1)
+                                                             
+   20 00000008 F64E 61EE       MOV              R1,#0XEEEE  ;If the number is E
+                                                            VEN store OxEEEE in
+                                                             R1
+   21 0000000C E001            B                stop
+   22 0000000E F241 1111 
+                       NEXT    MOV              R1,#0x1111  ; if ODD number, St
+                                                            ore Ox1111 in Reg R
+                                                            1 
+   23 00000012 E7FE    stop    B                stop        ; Branch to label s
+                                                            top 
+   24 00000014         
+   25 00000014                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\l-odd-
+even.d -o.\l-odd-even.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:
+\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\l-odd-even.lst L
+-odd-even.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+NUM 00000008
+
+Symbol: NUM
+   Definitions
+      At line 9 in file L-odd-even.s
+   Uses
+      At line 17 in file L-odd-even.s
+Comment: NUM used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file L-odd-even.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 5 in file L-odd-even.s
+   Uses
+      At line 3 in file L-odd-even.s
+Comment: __Vectors used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+NEXT 0000000E
+
+Symbol: NEXT
+   Definitions
+      At line 22 in file L-odd-even.s
+   Uses
+      At line 19 in file L-odd-even.s
+Comment: NEXT used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 16 in file L-odd-even.s
+   Uses
+      At line 7 in file L-odd-even.s
+      At line 14 in file L-odd-even.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 12 in file L-odd-even.s
+   Uses
+      None
+Comment: mycode unused
+stop 00000012
+
+Symbol: stop
+   Definitions
+      At line 23 in file L-odd-even.s
+   Uses
+      At line 21 in file L-odd-even.s
+      At line 23 in file L-odd-even.s
+
+4 symbols
+338 symbols in table

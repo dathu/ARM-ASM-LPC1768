@@ -1,0 +1,140 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;ALP to covert  ASCII to Hex Number - Single digit
+    2 00000000         
+    3 00000000                 AREA             RESET, DATA, READONLY
+    4 00000000                 EXPORT           __Vectors
+    5 00000000         
+    6 00000000         __Vectors
+    7 00000000 40001000        DCD              0x40001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    8 00000004 00000000        DCD              Reset_Handler ; reset vector
+    9 00000008         
+   10 00000008                 ALIGN
+   11 00000008         
+   12 00000008                 AREA             mycode, CODE, READONLY
+   13 00000000                 ENTRY
+   14 00000000                 EXPORT           Reset_Handler
+   15 00000000         
+   16 00000000         Reset_Handler
+   17 00000000 4905            LDR              R1, =0X40000200 ; Get the memor
+                                                            y location of ASCII
+                                                             input  enter 36 in
+                                                             memory
+   18 00000002 7808            LDRB             R0, [R1]    ; Read ASCII Number
+                                                             from the memory. 
+   19 00000004 283A            CMP              R0, #0X3A   ; Cheek if ASCII nu
+                                                            mber > 3A(06) 
+   20 00000006 DB01            BLT              NEXT        ; branch to NEXT if
+                                                             RO<Ox1A 
+   21 00000008 F1A0 0030       SUB              R0, R0, #0x30 ; if ASCII number
+                                                             >3A subtract 7. Ot
+                                                            herwise skip this i
+                                                            nstruction.
+   22 0000000C         NEXT
+   23 0000000C F1A0 0030       SUB              R0, R0, #0X30 ; Subtract 30 and
+                                                             store the ASCII nu
+                                                            mber in R0. 
+   24 00000010 4B02            LDR              R3, =DST    ;Copy the address w
+                                                            here she hexadecima
+                                                            l value should be s
+                                                            tored. 
+   25 00000012 7018            STRB             R0, [R3]    ; Store the result 
+                                                            in the memory. 
+   26 00000014         
+   27 00000014 BF00            NOP
+   28 00000016         
+   29 00000016 00 00 40000200 
+              00000000         AREA             ASCII, DATA, READWRITE
+   30 00000000 00000000 
+                       DST     DCD              0
+   31 00000004         
+   32 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\acii2h
+ex.d -o.\acii2hex.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Kei
+l\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\acii2hex.lst acii2he
+x.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file acii2hex.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 6 in file acii2hex.s
+   Uses
+      At line 4 in file acii2hex.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+NEXT 0000000C
+
+Symbol: NEXT
+   Definitions
+      At line 22 in file acii2hex.s
+   Uses
+      At line 20 in file acii2hex.s
+Comment: NEXT used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 16 in file acii2hex.s
+   Uses
+      At line 8 in file acii2hex.s
+      At line 14 in file acii2hex.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 12 in file acii2hex.s
+   Uses
+      None
+Comment: mycode unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+ASCII 00000000
+
+Symbol: ASCII
+   Definitions
+      At line 29 in file acii2hex.s
+   Uses
+      None
+Comment: ASCII unused
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 30 in file acii2hex.s
+   Uses
+      At line 24 in file acii2hex.s
+Comment: DST used once
+2 symbols
+340 symbols in table

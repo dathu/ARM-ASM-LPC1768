@@ -1,0 +1,146 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    6 00000004 00000000        DCD              Reset_Handler ; reset vector
+    7 00000008         
+    8 00000008                 ALIGN
+    9 00000008                 AREA             AModes, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000         ; ------------------- Initializations ------------------
+                       ---------------------
+   15 00000000         
+   16 00000000 F04F 5080       LDR              R0, =0X10000000 ; memort locati
+                                                            on in RAM pointed b
+                                                            y R0 (immediate val
+                                                            ue)
+   17 00000004         
+   18 00000004         ; ------------------- REGISTER INDIRECT ADDRESSING MODE 
+                       -----------------------
+   19 00000004 4906            LDR              R1, =0X12345678 ; values to be 
+                                                            stored in memory
+   20 00000006 6001            STR              R1, [R0]    ; REGISTER INDIRECT
+                                                             ADRESSING MODE
+   21 00000008         
+   22 00000008         ; ARM follows little endian format so LSB byte is stored
+                        @ lower memory location (0X10000000) 
+   23 00000008         ; followed by MSB @ higher memory location (0X10000003).
+                       
+   24 00000008         ; Note: processor ALU can process 32 bit data but each m
+                       emory location can store only 8 bit data
+   25 00000008         
+   26 00000008         ; ------------------- PREINDEXING ADDRESSING MODE ------
+                       -----------------------
+   27 00000008 4A06            LDR              R2, =0X19ABCDEF ; values to be 
+                                                            stored in memory
+   28 0000000A 6042            STR              R2, [R0, #4] ; PREINDEXING addr
+                                                            essing mode, 
+   29 0000000C         ;observer the value in memory loc & content of R0 after 
+                       exection of this instruction (R0 content is not changed)
+                       
+   30 0000000C         
+   31 0000000C         ; ------------------- PREINDEXING ADDRESSING MODE with W
+                       RITE BACK-----------------------------
+   32 0000000C 4B06            LDR              R3, =0XAABBCCDD ; values to be 
+                                                            stored in memory
+   33 0000000E F840 3F08       STR              R3, [R0, #8]! ; PREINDEXING add
+                                                            ressing mode with W
+                                                            RITE BACK
+   34 00000012         ;observer the value in memory loc & content of R0 after 
+                       exection of this instruction (R0 content is UPDATED)
+   35 00000012         
+   36 00000012 F850 4C04       LDR              R4, [R0, #-4] ; PREINDEXING add
+                                                            ressing mode -ve in
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                                                            dex (R0 content is 
+                                                            not changed)
+   37 00000016         
+   38 00000016 F850 5D08       LDR              R5, [R0, #-8]! ; PREINDEXING ad
+                                                            dressing mode -ve i
+                                                            ndex with WRITE BAC
+                                                            K(R0 content is UPD
+                                                            ATED)
+   39 0000001A         
+   40 0000001A         
+   41 0000001A         ; ------------------- POST INDEXING ADDRESSING MODE ----
+                       -------------------------
+   42 0000001A F850 6B04       LDR              R6,[R0], #4 ; POST INDEXING, 
+   43 0000001E         ;1-> fetch the data from memory location pointed by R0 a
+                       nd store it in R6
+   44 0000001E         ;2-> UPDTAE the content of R0 to point it to new memory 
+                       location
+   45 0000001E         
+   46 0000001E BF00            NOP
+   47 00000020                 END
+              12345678 
+              19ABCDEF 
+              AABBCCDD 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\load-s
+tore-2.d -o.\load-store-2.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include 
+-IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\load-store-2
+.lst load-store-2.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file load-store-2.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file load-store-2.s
+   Uses
+      At line 2 in file load-store-2.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+AModes 00000000
+
+Symbol: AModes
+   Definitions
+      At line 9 in file load-store-2.s
+   Uses
+      None
+Comment: AModes unused
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file load-store-2.s
+   Uses
+      At line 6 in file load-store-2.s
+      At line 11 in file load-store-2.s
+
+2 symbols
+337 symbols in table

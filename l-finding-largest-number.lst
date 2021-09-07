@@ -1,0 +1,162 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    6 00000004 00000000        DCD              Reset_Handler ; reset vector
+    7 00000008         
+    8 00000008                 ALIGN
+    9 00000008         
+   10 00000008                 AREA             mycode, CODE, READONLY
+   11 00000000                 ENTRY
+   12 00000000                 EXPORT           Reset_Handler
+   13 00000000         
+   14 00000000         Reset_Handler
+   15 00000000 F04F 0100       mov              r1,#0
+   16 00000004 F04F 080A       mov              r8,#10
+   17 00000008 4811            ldr              r0,= data
+   18 0000000A 4A12            ldr              r2,=result
+   19 0000000C F850 3B04 
+                       up      ldr              r3,[r0],#04
+   20 00000010 428B            cmp              r3, r1
+   21 00000012 D303            bcc              loopset
+   22 00000014 4619            mov              r1,r3
+   23 00000016 4604            mov              r4,r0
+   24 00000018 F1A4 0404       sub              r4, #04
+   25 0000001C         loopset
+   26 0000001C F1A8 0801       sub              r8,#01
+   27 00000020 F098 0F00       teq              r8,#0
+   28 00000024 D1F2            bne              up
+   29 00000026 F842 1B04       str              r1,[r2],#04
+   30 0000002A 6014            str              r4,[r2]
+   31 0000002C E7FE    here    b                here
+   32 0000002E 00 00 12345678 
+              01111111 
+              ABCD1234 
+              99999999 
+              FFFFFFFF 
+              01133333 
+              44444444 
+              EEEEEEEE data    dcd              0x12345678, 0x1111111, 0xabcd12
+34, 0x99999999,0xFFFFFFFF, 0x1133333, 0x44444444, 0xeeeeeeee
+   33 00000050 00000000 
+              00000000         area             data1 , DATA, readwrite
+   34 00000000 00000000 
+                       result  dcd              0
+   35 00000004         
+   36 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\l-find
+ing-largest-number.d -o.\l-finding-largest-number.o -IC:\Keil\ARM\RV31\INC -IC:
+\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 
+1" --list=.\l-finding-largest-number.lst L-finding-largest-number.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file L-finding-largest-number.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file L-finding-largest-number.s
+   Uses
+      At line 2 in file L-finding-largest-number.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 14 in file L-finding-largest-number.s
+   Uses
+      At line 6 in file L-finding-largest-number.s
+      At line 12 in file L-finding-largest-number.s
+
+data 00000030
+
+Symbol: data
+   Definitions
+      At line 32 in file L-finding-largest-number.s
+   Uses
+      At line 17 in file L-finding-largest-number.s
+Comment: data used once
+here 0000002C
+
+Symbol: here
+   Definitions
+      At line 31 in file L-finding-largest-number.s
+   Uses
+      At line 31 in file L-finding-largest-number.s
+Comment: here used once
+loopset 0000001C
+
+Symbol: loopset
+   Definitions
+      At line 25 in file L-finding-largest-number.s
+   Uses
+      At line 21 in file L-finding-largest-number.s
+Comment: loopset used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 10 in file L-finding-largest-number.s
+   Uses
+      None
+Comment: mycode unused
+up 0000000C
+
+Symbol: up
+   Definitions
+      At line 19 in file L-finding-largest-number.s
+   Uses
+      At line 28 in file L-finding-largest-number.s
+Comment: up used once
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+data1 00000000
+
+Symbol: data1
+   Definitions
+      At line 33 in file L-finding-largest-number.s
+   Uses
+      None
+Comment: data1 unused
+result 00000000
+
+Symbol: result
+   Definitions
+      At line 34 in file L-finding-largest-number.s
+   Uses
+      At line 18 in file L-finding-largest-number.s
+Comment: result used once
+2 symbols
+343 symbols in table
